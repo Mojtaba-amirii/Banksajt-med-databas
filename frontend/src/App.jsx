@@ -29,16 +29,32 @@ function App() {
   }
 
   return (
-    <div className="App">
+    <div className="">
       <h2>Register</h2>
       <label> username </label>
-      <input type="text" onChange={(e) => setUsername(e.target.value)} />
+      <input
+        title="username"
+        type="text"
+        placeholder="Enter username"
+        onChange={(e) => setUsername(e.target.value)}
+      />
       <label>password</label>
-      <input type="text" onChange={(e) => setPassword(e.target.value)} />
+      <input
+        type="text"
+        placeholder="Enter a strong password"
+        onChange={(e) => setPassword(e.target.value)}
+      />
       <br />
-      <label>amount</label>
-      <input type="text" onChange={(e) => setAmount(e.target.value)} />
-      <button onClick={handleRegister}> Register here!</button>
+      <label>Amount</label>
+      <input
+        type="number"
+        placeholder="Insert the amount"
+        onChange={(e) => setAmount(e.target.value)}
+      />
+      <button type="button" onClick={handleRegister}>
+        {" "}
+        Register here!
+      </button>
       <Login />
     </div>
   );

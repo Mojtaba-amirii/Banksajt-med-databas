@@ -47,12 +47,24 @@ function Login() {
 
   return (
     <div className="App">
-      <h2>login</h2>
-      <label> username </label>
-      <input type="text" onChange={(e) => setUsername(e.target.value)} />
-      <label>password</label>
-      <input type="text" onChange={(e) => setPassword(e.target.value)} />
-      <button onClick={handleLogin}> Login here!</button>
+      <h2>login into your Bank account</h2>
+      <label>Your username </label>
+      <input
+        title="Log in"
+        type="text"
+        placeholder="Your username"
+        onChange={(e) => setUsername(e.target.value)}
+      />
+      <label>Your password</label>
+      <input
+        type="password"
+        placeholder="Your password"
+        onChange={(e) => setPassword(e.target.value)}
+      />
+      <button type="button" onClick={handleLogin}>
+        {" "}
+        Click to log in!
+      </button>
       <br />
       <br />
       <div>
