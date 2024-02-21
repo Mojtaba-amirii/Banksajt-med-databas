@@ -7,7 +7,7 @@ function Login() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
-  const [myToken, setMyToken] = useState(null); // State to store the token
+  const [myToken, setMyToken] = useState(null);
 
   const handleLogin = async () => {
     setLoading(true);
@@ -107,7 +107,9 @@ function Login() {
         <button type="button" onClick={handleLogin} disabled={loading}>
           {loading ? "Logging In..." : "Log In"}
         </button>
-        {isLoggedIn && <div>{`Welcome ${username}!`}</div>}
+        {isLoggedIn && (
+          <div className=" text-green-500">{`Welcome ${username}!`}</div>
+        )}
         <div>
           <h2>Your Credit</h2>
           <button type="button" onClick={handleGetAccount} disabled={loading}>
@@ -115,7 +117,7 @@ function Login() {
           </button>
         </div>
         {error && <div className="text-red-500">{error}</div>}
-        <div>{amount}</div>
+        <div className=" text-green-600">{amount}</div>
       </form>
     </div>
   );
