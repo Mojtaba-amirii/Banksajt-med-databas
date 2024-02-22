@@ -30,15 +30,35 @@ function App() {
 
   return (
     <div className="App">
+      <h1>MUJI BANK</h1>
       <h2>Register</h2>
-      <label> username </label>
-      <input type="text" onChange={(e) => setUsername(e.target.value)} />
-      <label>password</label>
-      <input type="text" onChange={(e) => setPassword(e.target.value)} />
-      <br />
-      <label>amount</label>
-      <input type="text" onChange={(e) => setAmount(e.target.value)} />
-      <button onClick={handleRegister}> Register here!</button>
+      <form className=" flex flex-col border border-s-orange-100">
+        <label>Write a Username </label>
+        <input
+          title="username"
+          placeholder="username"
+          type="text"
+          onChange={(e) => setUsername(e.target.value)}
+        />
+        <label>New a Password</label>
+        <input
+          title="password"
+          placeholder="password"
+          type="password"
+          onChange={(e) => setPassword(e.target.value)}
+        />
+        <label>amount</label>
+        <input
+          title="amount"
+          placeholder="amount"
+          type="number"
+          onChange={(e) => setAmount(e.target.value)}
+        />
+        <button type="button" title="register-account" onClick={handleRegister}>
+          {" "}
+          Register here!
+        </button>
+      </form>
       <Login />
     </div>
   );

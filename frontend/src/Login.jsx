@@ -48,18 +48,26 @@ function Login() {
   return (
     <div className="App">
       <h2>login</h2>
-      <label> username </label>
-      <input type="text" onChange={(e) => setUsername(e.target.value)} />
-      <label>password</label>
-      <input type="text" onChange={(e) => setPassword(e.target.value)} />
-      <button onClick={handleLogin}> Login here!</button>
-      <br />
-      <br />
-      <div>
-        <h2>Account</h2>
-        <button onClick={handleGetAccount}>Get account</button>
-      </div>
-      <div>{amount}</div>
+      <form className=" flex flex-col">
+        <label> username </label>
+        <input
+          placeholder="your username"
+          type="text"
+          onChange={(e) => setUsername(e.target.value)}
+        />
+        <label>password</label>
+        <input
+          placeholder="your password"
+          type="text"
+          onChange={(e) => setPassword(e.target.value)}
+        />
+        <button onClick={handleLogin}> Login here!</button>
+        <div>
+          <h2>Account</h2>
+          <button onClick={handleGetAccount}>Get account</button>
+        </div>
+        <div>{amount}</div>
+      </form>
     </div>
   );
 }
