@@ -1,74 +1,126 @@
 import { useState } from "react";
 
-let myToken;
-
 function Login() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [amount, setAmount] = useState("");
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+  const [myToken, setMyToken] = useState(null);
 
-  function handleLogin() {
-    const user = {
-      username: username,
-      password: password,
-    };
-    fetch("http://localhost:4001/sessions", {
-      method: "POST",
-      mode: "cors",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(user),
-    })
-      .then((res) => res.json())
-      .then((data) => {
+  const handleLogin = async () => {
+    setLoading(true);
+    setError(null);
+
+    try {
+      const user = { username, password };
+
+      const response = await fetch("http://localhost:4001/sessions", {
+        method: "POST",
+        mode: "cors",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(user),
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+
+      const data = await response.json();
+
+      if (data && data.token) {
         console.log(data.token);
-        myToken = data.token;
-      });
-  }
+        setIsLoggedIn(true);
+        setMyToken(data.token); // Set the token in state
+      } else {
+        throw new Error("Unexpected response format");
+      }
+    } catch (error) {
+      console.error("Error during login", error);
+      setError("Login failed. Please try again.");
+    } finally {
+      setLoading(false);
+    }
+  };
 
-  function handleGetAccount() {
-    fetch("http://localhost:4001/me/accounts", {
-      method: "GET",
-      mode: "cors",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-        Authorization: "Bearer " + myToken,
-      },
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        console.log(data);
-        setAmount(data.amount);
+  const handleGetAccount = async () => {
+    setLoading(true);
+    setError(null);
+
+    try {
+      if (!isLoggedIn) {
+        throw new Error("User is not logged in");
+      }
+
+      if (!myToken) {
+        throw new Error("Token not available");
+      }
+
+      const response = await fetch("http://localhost:4001/me/accounts", {
+        method: "GET",
+        mode: "cors",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + myToken,
+        },
       });
-  }
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+
+      const data = await response.json();
+      console.log(data);
+      setAmount(data.amount);
+    } catch (error) {
+      console.error("Error during get account", error);
+      setError("Failed to retrieve account information.");
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
-    <div className="App">
-      <h2>login</h2>
-      <form className=" flex flex-col">
-        <label> username </label>
+    <div className="flex flex-col gap-4 mt-5">
+      <h2>Login into your Bank account</h2>
+      <form className="w-1/2 mx-auto flex flex-col gap-2">
+        <label>Your username </label>
         <input
-          placeholder="your username"
+          title="Log in"
           type="text"
+          placeholder="Your username"
+          autoComplete="username"
           onChange={(e) => setUsername(e.target.value)}
         />
-        <label>password</label>
+        <label>Your password</label>
         <input
-          placeholder="your password"
-          type="text"
+          type="password"
+          placeholder="Your password"
+          autoComplete="off"
           onChange={(e) => setPassword(e.target.value)}
         />
-        <button onClick={handleLogin}> Login here!</button>
+        <button type="button" onClick={handleLogin} disabled={loading}>
+          {loading ? "Logging In..." : "Log In"}
+        </button>
+        {isLoggedIn && (
+          <div className=" text-green-500">{`Welcome ${username}!`}</div>
+        )}
         <div>
-          <h2>Account</h2>
-          <button onClick={handleGetAccount}>Get account</button>
+          <h2>Your Credit</h2>
+          <button type="button" onClick={handleGetAccount} disabled={loading}>
+            {loading ? "Checking..." : "Check"}
+          </button>
         </div>
-        <div>{amount}</div>
+        {error && <div className="text-red-500">{error}</div>}
+        <div className=" text-green-600">{amount}</div>
       </form>
     </div>
   );
 }
+
 export default Login;

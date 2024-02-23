@@ -37,13 +37,21 @@ const connection = mysql.createConnection({
   database: "muji bank",
 });
 
+connection.connect((err) => {
+  if (err) {
+    console.error("Error connecting to database", err);
+  } else {
+    console.log("DB: connected!");
+    app.listen(PORT, () => {
+      console.log("Server started on port: " + PORT);
+    });
+  }
+});
+
 app.use(cors());
-
 app.use(bodyParser.json());
-
 app.post("/users", (req, res) => {
   const user = req.body;
-
   const { username, password, amount } = user;
   console.log("req body ", user);
 
@@ -114,19 +122,7 @@ app.get("/me/accounts", authenticateToken, (req, res) => {
         const dbAccount = results[0];
         res.json(dbAccount);
       }
-
       console.log("results", results);
     }
   );
-});
-
-connection.connect((err) => {
-  if (err) {
-    console.log(err);
-  } else {
-    console.log("DB: connected!");
-    app.listen(PORT, () => {
-      console.log("Server started on port: " + PORT);
-    });
-  }
 });
