@@ -1,6 +1,6 @@
 import { useState } from "react";
-import Login from "./Login";
-import "./App.css";
+import Login from "./components/Login";
+import "./styles/App.css";
 
 function App() {
   const [username, setUsername] = useState("");
@@ -29,12 +29,11 @@ function App() {
           throw new Error(`HTTP error! Status: ${res.status}`);
         }
 
-        // Check if the response is JSON or text
         const contentType = res.headers.get("content-type");
         if (contentType && contentType.includes("application/json")) {
           return res.json();
         } else {
-          return res.text(); // Handle non-JSON responses
+          return res.text();
         }
       })
       .then((data) => {
@@ -53,37 +52,49 @@ function App() {
   }
 
   return (
-    <div className="flex flex-col justify-center items-center bg-slate-500 gap-5 w-full h-full p-10">
-      <header>
-        <h1 className="text-4xl font-bold">MUJI BANK</h1>
+    <main className="flex flex-col justify-center items-center bg-slate-500 gap-y-5 w-full h-full py-4">
+      <header className="w-full text-center bg-inherit sticky top-0 z-10">
+        <h1 className=" text-4xl font-bold">MUJI BANK</h1>
       </header>
-      <main className="w-2/3 mx-auto">
-        <form className="w-1/2 mx-auto flex flex-col gap-2">
-          <h2 className="text-xl">Create your bank account here</h2>
-          <label>Username</label>
+      <section className="w-2/3 flex flex-col mx-auto gap-y-6">
+        <form className="w-1/2 mx-auto flex flex-col gap-3">
+          <h2 className="text-2xl text-center">
+            Create your bank account here
+          </h2>
+          <label>Choose Username</label>
           <input
             title="username"
             type="text"
             placeholder="Enter username"
             autoComplete="username"
             onChange={(e) => setUsername(e.target.value)}
+            className="p-1 rounded-sm"
           />
-          <label>Password</label>
+          <label>Choose Password</label>
           <input
+            title="password"
             type="password"
             placeholder="Enter a strong password"
             autoComplete="new-password"
             onChange={(e) => setPassword(e.target.value)}
+            className="p-1 rounded-sm"
           />
-          <label>Amount</label>
+          <label>Put any Amount</label>
           <input
+            title="amount"
             type="number"
             placeholder="Insert the amount"
             autoComplete="off"
             onChange={(e) => setAmount(e.target.value)}
+            className="p-1 rounded-sm"
           />
-          <button type="button" onClick={handleRegister}>
-            REGISTER
+          <button
+            title="Register account button"
+            type="button"
+            className="bg-blue-500 p-1 mt-2"
+            onClick={handleRegister}
+          >
+            Register
           </button>
           {registrationStatus === "success" && (
             <p className="text-green-500">Registration successful!</p>
@@ -95,8 +106,9 @@ function App() {
           )}
         </form>
         <Login />
-      </main>
-    </div>
+      </section>
+      <footer>Designed and developed by Mojtaba Amiri</footer>
+    </main>
   );
 }
 
