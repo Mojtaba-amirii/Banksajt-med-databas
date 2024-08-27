@@ -44,6 +44,11 @@ app.use(
 app.options("*", cors());
 app.use(bodyParser.json());
 
+app.use("/api/users", (req, res, next) => {
+  console.log(`Received ${req.method} request to /api/users`);
+  next();
+});
+
 // Endpoint to add a new user
 app.post("/api/users", async (req, res) => {
   console.log("Received POST request to /api/users");
