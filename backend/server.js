@@ -20,7 +20,7 @@ function authenticateToken(req, res, next) {
   const token = authHeader && authHeader.split(" ")[1];
   if (token == null) return res.sendStatus(401);
   jwt.verify(token, secret, (err, userId) => {
-    console.log(err);
+    console.error(err);
     if (err) return res.sendStatus(403);
     req.userId = userId;
     next();

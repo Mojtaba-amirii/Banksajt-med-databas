@@ -12,19 +12,20 @@ function Login() {
   const handleLogin = async () => {
     setLoading(true);
     setError(null);
-
     try {
       const user = { username, password };
-
-      const response = await fetch("http://localhost:4001/sessions", {
-        method: "POST",
-        mode: "cors",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(user),
-      });
+      const response = await fetch(
+        `${import.meta.env.VITE_API_BASE_URL}/sessions`,
+        {
+          method: "POST",
+          mode: "cors",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(user),
+        }
+      );
 
       if (!response.ok) {
         throw new Error(`HTTP error! Status: ${response.status}`);
@@ -59,15 +60,18 @@ function Login() {
         throw new Error("Token not available");
       }
 
-      const response = await fetch("http://localhost:4001/me/accounts", {
-        method: "GET",
-        mode: "cors",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-          Authorization: "Bearer " + myToken,
-        },
-      });
+      const response = await fetch(
+        `${import.meta.env.VITE_API_BASE_URL}/me/accounts`,
+        {
+          method: "GET",
+          mode: "cors",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+            Authorization: "Bearer " + myToken,
+          },
+        }
+      );
 
       if (!response.ok) {
         throw new Error(`HTTP error! Status: ${response.status}`);
