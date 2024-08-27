@@ -33,11 +33,12 @@ const PORT = process.env.PORT || 4001;
 app.use(
   cors({
     origin: [
-      "https://banksajt-med-databas.vercel.app", // Production URL
-      "http://localhost:5173", // Local development URL
+      "https://banksajt-med-databas.vercel.app",
+      "http://localhost:5173",
     ],
-    methods: ["GET", "POST", "PUT", "DELETE"], // Allow relevant methods
-    credentials: true, // If you are using cookies or authentication
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    allowedHeaders: ["Content-Type", "Authorization"],
+    credentials: true,
   })
 );
 app.use(bodyParser.json());
