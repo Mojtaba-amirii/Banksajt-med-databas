@@ -30,7 +30,7 @@ function authenticateToken(req, res, next) {
 const app = express();
 const PORT = process.env.PORT || 4001;
 
-app.use(cors());
+app.use("*", cors());
 app.use(bodyParser.json());
 
 // Endpoint to add a new user
