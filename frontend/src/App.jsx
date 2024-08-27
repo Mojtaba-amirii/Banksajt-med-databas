@@ -30,7 +30,6 @@ function App() {
         if (!res.ok) {
           throw new Error(`HTTP error! Status: ${res.status}`);
         }
-
         const contentType = res.headers.get("content-type");
         if (contentType && contentType.includes("application/json")) {
           return res.json();

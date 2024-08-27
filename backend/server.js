@@ -30,7 +30,16 @@ function authenticateToken(req, res, next) {
 const app = express();
 const PORT = process.env.PORT || 4001;
 
-app.use(cors());
+app.use(
+  cors({
+    origin: [
+      "https://banksajt-med-databas.vercel.app", // Production URL
+      "http://localhost:5173", // Local development URL
+    ],
+    methods: ["GET", "POST", "PUT", "DELETE"], // Allow relevant methods
+    credentials: true, // If you are using cookies or authentication
+  })
+);
 app.use(bodyParser.json());
 
 // Endpoint to add a new user
