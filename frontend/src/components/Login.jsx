@@ -33,9 +33,8 @@ function Login() {
       const data = await response.json();
 
       if (data && data.token) {
-        console.log(data.token);
         setIsLoggedIn(true);
-        setMyToken(data.token); // Set the token in state
+        setMyToken(data.token);
       } else {
         throw new Error("Unexpected response format");
       }
@@ -75,7 +74,6 @@ function Login() {
       }
 
       const data = await response.json();
-      console.log(data);
       setAmount(data.amount);
     } catch (error) {
       console.error("Error during get account", error);
