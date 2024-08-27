@@ -15,7 +15,7 @@ function Login() {
     try {
       const user = { username, password };
       const response = await fetch(
-        `${import.meta.env.VITE_API_BASE_URL}/sessions`,
+        `${import.meta.env.VITE_API_BASE_URL}/api/sessions`,
         {
           method: "POST",
           mode: "cors",
@@ -61,7 +61,7 @@ function Login() {
       }
 
       const response = await fetch(
-        `${import.meta.env.VITE_API_BASE_URL}/me/accounts`,
+        `${import.meta.env.VITE_API_BASE_URL}/api/me/accounts`,
         {
           method: "GET",
           mode: "cors",

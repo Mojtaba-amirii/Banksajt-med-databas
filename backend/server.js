@@ -34,7 +34,9 @@ app.use("*", cors());
 app.use(bodyParser.json());
 
 // Endpoint to add a new user
-app.post("/users", async (req, res) => {
+app.post("/api/users", async (req, res) => {
+  console.log("POST /users called");
+  console.log("Request body:", req.body);
   const { username, password, amount } = req.body;
   try {
     const { rows } = await sql`
@@ -56,7 +58,7 @@ app.post("/users", async (req, res) => {
 });
 
 // Endpoint to create a session (login)
-app.post("/sessions", async (req, res) => {
+app.post("/api/sessions", async (req, res) => {
   const { username, password } = req.body;
   try {
     const { rows } = await sql`
@@ -76,7 +78,7 @@ app.post("/sessions", async (req, res) => {
 });
 
 // Endpoint to get account details
-app.get("/me/accounts", authenticateToken, async (req, res) => {
+app.get("/api/me/accounts", authenticateToken, async (req, res) => {
   try {
     const { rows } = await sql`
       SELECT * FROM accounts WHERE user_id = ${req.userId};

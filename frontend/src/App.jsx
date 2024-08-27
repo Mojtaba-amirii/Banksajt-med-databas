@@ -17,7 +17,7 @@ function App() {
       amount: amount,
     };
 
-    fetch(`${import.meta.env.VITE_API_BASE_URL}/users`, {
+    fetch(`${import.meta.env.VITE_API_BASE_URL}/api/users`, {
       method: "POST",
       mode: "cors",
       headers: {
