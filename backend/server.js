@@ -41,12 +41,12 @@ app.use(
     credentials: true,
   })
 );
+app.options("*", cors());
 app.use(bodyParser.json());
 
 // Endpoint to add a new user
 app.post("/api/users", async (req, res) => {
-  console.log("POST /users called");
-  console.log("Request body:", req.body);
+  console.log("Received POST request to /api/users");
   const { username, password, amount } = req.body;
   try {
     const { rows } = await sql`
@@ -60,7 +60,7 @@ app.post("/api/users", async (req, res) => {
       INSERT INTO accounts (user_id, amount)
       VALUES (${userId}, ${amount});
     `;
-    res.sendStatus(200);
+    res.sendStatus(200).json({ message: "User registered successfully" });
   } catch (err) {
     console.error(err);
     res.sendStatus(500);
