@@ -9,6 +9,8 @@ function App() {
   const [registrationStatus, setRegistrationStatus] = useState(null);
 
   function handleRegister() {
+    console.log("API Base URL:", import.meta.env.VITE_API_BASE_URL);
+
     const user = {
       username: username,
       password: password,
