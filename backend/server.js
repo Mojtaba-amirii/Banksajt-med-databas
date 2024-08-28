@@ -28,7 +28,7 @@ function authenticateToken(req, res, next) {
 }
 
 const app = express();
-const PORT = process.env.PORT || 4001;
+const PORT = process.env.PORT || 4001 || 3000;
 
 app.use(
   cors({
