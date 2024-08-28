@@ -5,7 +5,7 @@
       "use": "@vercel/node",
       "config": {
         "functions": {
-          "api/**/*.js": {
+          "backend/server.js": {
             "runtime": "nodejs18.x"
           }
         }
@@ -14,11 +14,11 @@
     {
       "src": "frontend/package.json",
       "use": "@vercel/static-build",
-      "config": { "distDir": "dist" }
+      "config": { "distDir": "frontend/dist" }
     }
   ],
   "routes": [
-    { "src": "/api/(.*)", "dest": "backend/server.js" },
+    { "src": "/api/(.*)", "dest": "backend/server.js/$1" },
     { "src": "/(.*)", "dest": "frontend/dist/$1" }
   ]
 }
