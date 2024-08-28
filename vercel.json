@@ -7,11 +7,28 @@
     {
       "src": "frontend/package.json",
       "use": "@vercel/static-build",
-      "outputDirectory": "frontend/dist"
+      "config": { "distDir": "frontend/dist" }
     }
   ],
   "routes": [
     { "src": "/api/(.*)", "dest": "backend/server.js" },
     { "src": "/(.*)", "dest": "frontend/$1" }
+  ],
+  "redirects": [
+    {
+      "source": "/api/users",
+      "destination": "/backend/server.js",
+      "permanent": true
+    },
+    {
+      "source": "/api/sessions",
+      "destination": "/backend/server.js",
+      "permanent": true
+    },
+    {
+      "source": "/api/me/accounts",
+      "destination": "/backend/server.js",
+      "permanent": true
+    }
   ]
 }
